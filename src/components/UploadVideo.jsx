@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/UploadVideo.css';
+import Navbar from './Navbar';  // Importamos el componente Navbar
 
 function UploadVideo() {
     const [videoFile, setVideoFile] = useState(null);
@@ -37,10 +38,16 @@ function UploadVideo() {
         formData.append('title', title);
         formData.append('description', description);
 
+        // Obtener el token de autenticación desde el localStorage (si está disponible)
+        const token = localStorage.getItem('token'); // Ajusta según cómo estés manejando la autenticación
+
         try {
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    'Authorization': token ? `Bearer ${token}` : '', // Incluir token si está disponible
+                },
             });
 
             const result = await response.json();
@@ -58,51 +65,54 @@ function UploadVideo() {
     };
 
     return (
-        <div className="upload-container">
-            <h2 className="upload-title">Sube tu Video</h2>
-            <p className="upload-subtitle">Comparte tu video con la comunidad</p>
-            {error && <div className="error-message">{error}</div>}
-            {success && <div className="success-message">{success}</div>}
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="video">
-                        <i className="fas fa-video icon"></i> Video
-                    </label>
-                    <input
-                        type="file"
-                        id="video"
-                        accept="video/*"
-                        onChange={handleVideoChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="title">
-                        <i className="fas fa-heading icon"></i> Título
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Ingresa el título del video"
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">
-                        <i className="fas fa-align-left icon"></i> Descripción
-                    </label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Agrega una descripción para tu video"
-                        required
-                    />
-                </div>
-                <button className="upload-button" type="submit">Subir Video</button>
-            </form>
+        <div>
+            <Navbar /> {/* Agregamos la barra de navegación en la parte superior */}
+            <div className="upload-container">
+                <h2 className="upload-title">Sube tu Video</h2>
+                <p className="upload-subtitle">Comparte tu video con la comunidad</p>
+                {error && <div className="error-message">{error}</div>}
+                {success && <div className="success-message">{success}</div>}
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="video">
+                            <i className="fas fa-video icon"></i> Video
+                        </label>
+                        <input
+                            type="file"
+                            id="video"
+                            accept="video/*"
+                            onChange={handleVideoChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="title">
+                            <i className="fas fa-heading icon"></i> Título
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            placeholder="Ingresa el título del video"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="description">
+                            <i className="fas fa-align-left icon"></i> Descripción
+                        </label>
+                        <textarea
+                            id="description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="Agrega una descripción para tu video"
+                            required
+                        />
+                    </div>
+                    <button className="upload-button" type="submit">Subir Video</button>
+                </form>
+            </div>
         </div>
     );
 }

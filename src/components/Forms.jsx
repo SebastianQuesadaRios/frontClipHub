@@ -5,9 +5,7 @@ function Forms({ callback }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
 
-    // Función para manejar el inicio de sesión
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -68,4 +66,5 @@ function Forms({ callback }) {
 }
 
 export default Forms;
+
 

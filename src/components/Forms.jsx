@@ -5,27 +5,24 @@ import userIcon from '../user.png';
 import passwordIcon from '../contraseña.png';
 
 function Login() {
-    const [username, setUsername] = useState(''); // Almacena el nombre de usuario
-    const [password, setPassword] = useState(''); // Almacena la contraseña
-    const [error, setError] = useState(''); // Mensaje de error
-    const [success, setSuccess] = useState(''); // Mensaje de éxito
-    const navigate = useNavigate(); // Hook para navegar entre rutas
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
-    // Función que maneja el inicio de sesión
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
-        setError(''); // Limpiar el mensaje de error
-        setSuccess(''); // Limpiar el mensaje de éxito
+        e.preventDefault();
+        setError('');
+        setSuccess('');
 
-        // Verificación básica de los campos
         if (!username || !password) {
             setError('Por favor, ingresa tu nombre de usuario y contraseña.');
             return;
         }
 
-        // Preparar los datos para la solicitud de login
         const loginData = {
-            email: username, // Usar el nombre de usuario como email
+            email: username,
             password,
         };
 
@@ -40,15 +37,11 @@ function Login() {
 
             const result = await response.json();
 
-            // Si el login es exitoso, guardar el token y redirigir
             if (response.ok) {
-                // Asumiendo que el servidor devuelve un token
-                localStorage.setItem('token', result.token); // Guardar el token en localStorage
+                localStorage.setItem('token', result.token);
                 setSuccess('Inicio de sesión exitoso');
-                console.log('Redirigiendo a /upload-video'); // Agregar un log para depuración
-                navigate('/upload-video'); // Redirigir a /upload-video
+                navigate('/upload-video');
             } else {
-                // Si las credenciales son incorrectas, mostrar error
                 setError(result.message || 'Credenciales incorrectas');
             }
         } catch (error) {
@@ -71,7 +64,7 @@ function Login() {
                     type="text"
                     id="username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)} // Actualizar el nombre de usuario
+                    onChange={(e) => setUsername(e.target.value)}
                     placeholder="Ingresa tu nombre de usuario"
                     required
                 />
@@ -84,15 +77,21 @@ function Login() {
                     type="password"
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)} // Actualizar la contraseña
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Ingresa tu contraseña"
                     required
                 />
             </div>
             <button className="login-button" onClick={handleLogin}>Iniciar sesión</button>
+            <button className="register-button" onClick={() => navigate('/register')}>
+                Crear cuenta
+            </button>
+            <div className="register-info">
+                <span className="tm-symbol">®</span>
+                AlphaCode
+            </div>
         </div>
     );
 }
 
 export default Login;
-

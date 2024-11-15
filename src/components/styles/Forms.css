@@ -129,4 +129,13 @@ body {
     margin-right: 5px;  /* Espacio entre el símbolo de marca registrada y el texto */
 }
 
+/* Botón de registro */
+.register-button {
+    margin-top: 1rem;
+    background-color: var(--heliotrope);
+}
+
+.register-button:hover {
+    background-color: var(--green-malachite);
+}
 

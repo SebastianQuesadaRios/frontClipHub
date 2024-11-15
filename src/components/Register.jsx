@@ -64,6 +64,7 @@ function Register() {
 
     return (
         <div className="register-container">
+            <div className="page-title">ClipHub</div>
             <h2 className="register-title">Crea tu cuenta</h2>
             <p className="register-subtitle">Regístrate para empezar a subir videos</p>
             {error && <div className="error-message">{error}</div>}

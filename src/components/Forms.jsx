@@ -83,7 +83,7 @@ function Login() {
                 />
             </div>
             <button className="login-button" onClick={handleLogin}>Iniciar sesión</button>
-            <button className="register-button" onClick={() => navigate('/Register')}>
+            <button className="register-button" onClick={() => navigate('/registro')}>
                 Crear cuenta
             </button>
             <div className="register-info">

@@ -52,6 +52,7 @@ function Login() {
 
     return (
         <div className="login-container">
+            <div className="page-title">ClipHub</div> {/* Título de la página */}
             <h2 className="login-title">Inicia Sesión</h2>
             <p className="login-subtitle">Accede a tu cuenta</p>
             {error && <div className="error-message">{error}</div>}
@@ -95,3 +96,4 @@ function Login() {
 }
 
 export default Login;
+

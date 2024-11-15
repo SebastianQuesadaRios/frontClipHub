@@ -139,3 +139,13 @@ body {
     background-color: var(--green-malachite);
 }
 
+/* Título de la página */
+.page-title {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem; /* Tamaño grande */
+    font-family: 'Arial Black', sans-serif; /* Fuente en negrita */
+    color: var(--green-malachite); /* Color consistente con el tema */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Efecto de sombra */
+}

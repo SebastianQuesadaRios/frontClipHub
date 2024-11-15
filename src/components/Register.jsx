@@ -30,7 +30,7 @@ function Register() {
         };
 
         try {
-            const response = await fetch('https://detodito-back.vercel.app/v1/margarita/register', {
+            const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -60,8 +60,7 @@ function UploadVideo() {
                 setTitle('');
                 setDescription('');
 
-                // Redirigir al home después de subir el video
-                navigate('/');
+               
             } else {
                 setError(result.message || 'Error al subir el video');
             }

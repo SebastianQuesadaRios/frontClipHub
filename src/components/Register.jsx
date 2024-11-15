@@ -45,8 +45,10 @@ function Register() {
 
             // Maneja la respuesta del servidor
             if (response.ok) {
-                setSuccess(result.message || 'Registro exitoso');
-                navigate('/login');
+                setSuccess(result.message || 'Usuario registrado correctamente');
+                setTimeout(() => {
+                    navigate('/login'); // Redirige al login después de mostrar el mensaje de éxito
+                }, 2000); // Espera 2 segundos antes de redirigir
             } else {
                 setError(result.message || 'Error al registrarse');
             }
@@ -125,5 +127,6 @@ function Register() {
 }
 
 export default Register;
+
 
 

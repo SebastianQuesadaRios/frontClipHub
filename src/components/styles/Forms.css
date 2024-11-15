@@ -1,0 +1,132 @@
+/* Colores personalizados */
+:root {
+    --green-malachite: #31EC56;
+    --razzmatazz: #EF036C;
+    --heliotrope: #EE72F8;
+}
+
+/* Estilo general con degradado */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--razzmatazz), var(--green-malachite));
+    margin: 0;
+}
+
+/* Contenedor de login con bordes en punta */
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 10px 10px 0px #000; /* Sombra negra */
+    text-align: center;
+    color: #333;
+    width: 300px;
+    /* Sin borde redondeado */
+}
+
+/* Estilos de título y subtítulo */
+.login-title {
+    font-family: 'Arial Black', sans-serif; /* Fuente en negrita */
+    color: #000;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.login-subtitle {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilo de formulario */
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Mensajes de error y éxito */
+.error-message,
+.success-message {
+    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.error-message {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.success-message {
+    background-color: rgba(0, 255, 0, 0.7);
+}
+
+/* Botones */
+.login-button,
+.register-button {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: var(--razzmatazz);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: var(--green-malachite);
+}
+
+.register-button {
+    background-color: var(--razzmatazz);
+}
+
+.register-button:hover {
+    background-color: var(--green-malachite);
+}
+
+/* Icono al lado del texto en el label */
+.icon {
+    width: 20px; /* Ajusta el tamaño del ícono según tus necesidades */
+    height: 20px;
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+    vertical-align: middle;
+}
+
+/* Estilo para el texto en la esquina inferior derecha */
+.register-info {
+    position: fixed;
+    bottom: 20px;  /* Ajusta la distancia desde el fondo */
+    right: 20px;   /* Ajusta la distancia desde el lado derecho */
+    font-size: 0.8rem;
+    color: #333;   /* Puedes cambiar el color según tus preferencias */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.register-info .tm-symbol {
+    margin-right: 5px;  /* Espacio entre el símbolo de marca registrada y el texto */
+}
+
+

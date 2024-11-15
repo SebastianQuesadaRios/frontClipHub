@@ -12,48 +12,50 @@ function Login() {
     const navigate = useNavigate(); // Hook para navegar entre rutas
 
     // Función que maneja el inicio de sesión
-    const handleLogin = async (e) => {
-        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
-        setError(''); // Limpiar el mensaje de error
-        setSuccess(''); // Limpiar el mensaje de éxito
+    // Función que maneja el inicio de sesión
+const handleLogin = async (e) => {
+    e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+    setError(''); // Limpiar el mensaje de error
+    setSuccess(''); // Limpiar el mensaje de éxito
 
-        // Verificación básica de los campos
-        if (!username || !password) {
-            setError('Por favor, ingresa tu nombre de usuario y contraseña.');
-            return;
-        }
+    // Verificación básica de los campos
+    if (!username || !password) {
+        setError('Por favor, ingresa tu nombre de usuario y contraseña.');
+        return;
+    }
 
-        // Preparar los datos para la solicitud de login
-        const loginData = {
-            email: username, // Usar el nombre de usuario como email
-            password,
-        };
-
-        try {
-            const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(loginData),
-            });
-
-            const result = await response.json();
-
-            // Si el login es exitoso, redirigir al componente de subir video
-            if (response.ok) {
-                setSuccess('Inicio de sesión exitoso');
-                // Redirigir al componente de subir video
-                navigate('/UploadVideo');
-            } else {
-                // Si las credenciales son incorrectas, mostrar error
-                setError(result.message || 'Credenciales incorrectas');
-            }
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-            setError('Error al intentar iniciar sesión. Intente de nuevo más tarde.');
-        }
+    // Preparar los datos para la solicitud de login
+    const loginData = {
+        email: username, // Usar el nombre de usuario como email
+        password,
     };
+
+    try {
+        const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData),
+        });
+
+        const result = await response.json();
+
+        // Si el login es exitoso, redirigir al componente de subir video
+        if (response.ok) {
+            setSuccess('Inicio de sesión exitoso');
+            console.log('Redirigiendo a /upload-video'); // Agregar un log para depuración
+            navigate('/upload-video'); // Redirigir a /upload-video
+        } else {
+            // Si las credenciales son incorrectas, mostrar error
+            setError(result.message || 'Credenciales incorrectas');
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+        setError('Error al intentar iniciar sesión. Intente de nuevo más tarde.');
+    }
+};
+
 
     return (
         <div className="login-container">

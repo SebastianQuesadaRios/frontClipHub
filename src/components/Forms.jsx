@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/Login.css';  // Asumo que tienes este archivo para los estilos.
+import './styles/Forms.css';  // Asumo que tienes este archivo para los estilos.
 import userIcon from '../user.png'; 
 import passwordIcon from '../contraseña.png';
 

@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Forms from './components/Forms';
-import Register from './components/Register';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
+import UploadVideo from './components/UploadVideo';
+import Home from './components/Home';  // Si tienes un Home donde se muestran los videos
 
 function App() {
-    const [userId, setUserId] = useState(null);
-
-    const handleLogin = (userId, role) => {
-        console.log("Usuario logueado con ID:", userId); // Esto debería mostrar el ID
-        setUserId(userId);
-    };
-
     return (
-        <BrowserRouter>
+        <Router>
             <Routes>
-                <Route index element={<Forms callback={handleLogin} />} />
-                <Route path="/registro" element={<Register />} />
-                <Route path="*" element={<Navigate to="/" />} /> {/* Redirige cualquier ruta no definida a la página de inicio de sesión */}
+                <Route path="/" element={<Login />} />
+                <Route path="/upload-video" element={<UploadVideo />} />
+                <Route path="/home" element={<Home />} />
             </Routes>
-        </BrowserRouter>
+        </Router>
     );
 }
 
 export default App;
+

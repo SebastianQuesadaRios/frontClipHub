@@ -44,7 +44,7 @@ function Login() {
             if (response.ok) {
                 setSuccess('Inicio de sesión exitoso');
                 // Redirigir al componente de subir video
-                navigate('/upload-video');
+                navigate('/UploadVideo');
             } else {
                 // Si las credenciales son incorrectas, mostrar error
                 setError(result.message || 'Credenciales incorrectas');
@@ -63,7 +63,7 @@ function Login() {
             {success && <div className="success-message">{success}</div>}
             <div className="form-group">
                 <label htmlFor="username">
-                    <img src={userIcon} alt="User Icon" className="icon" /> Nombre de usuario
+                    <img src={userIcon} alt="User Icon" className="icon" /> Email
                 </label>
                 <input
                     type="text"

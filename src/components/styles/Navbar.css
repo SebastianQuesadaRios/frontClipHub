@@ -16,12 +16,10 @@
 
 /* Logo de la aplicación */
 .navbar .logo {
-    font-family: 'Arial Black', sans-serif;
-    font-size: 1.5rem;
-    color: var(--razzmatazz);
-    text-transform: uppercase;
-    margin-right: 2rem;
-    cursor: pointer;
+    font-size: 3rem; /* Tamaño grande */
+    font-family: 'Arial Black', sans-serif; /* Fuente en negrita */
+    color: #fff; /* Color consistente con el tema */
+    text-shadow: 3px 3px 0px #000; /* Sombra sólida negra */
 }
 
 /* Enlaces de la barra de navegación como botones */

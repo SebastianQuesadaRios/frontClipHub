@@ -18,18 +18,21 @@ function Register() {
         setError('');
         setSuccess('');
 
+        // Verifica si las contraseñas coinciden
         if (password !== confirmPassword) {
             setError('Las contraseñas no coinciden.');
             return;
         }
 
+        // Prepara los datos con los nombres de campos correctos para el backend
         const registerData = {
-            username,
-            email,
-            password,
+            nombre: username,    // Cambié 'username' a 'nombre'
+            correo: email,       // Cambié 'email' a 'correo'
+            contraseña: password,  // Cambié 'password' a 'contraseña'
         };
 
         try {
+            // Realiza la solicitud al backend
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/register', {
                 method: 'POST',
                 headers: {
@@ -40,6 +43,7 @@ function Register() {
 
             const result = await response.json();
 
+            // Maneja la respuesta del servidor
             if (response.ok) {
                 setSuccess(result.message || 'Registro exitoso');
                 navigate('/login');
@@ -121,4 +125,5 @@ function Register() {
 }
 
 export default Register;
+
 

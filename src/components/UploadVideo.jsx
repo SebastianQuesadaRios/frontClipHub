@@ -42,7 +42,7 @@ function UploadVideo() {
         const token = localStorage.getItem('token'); // Ajusta según cómo estés manejando la autenticación
 
         try {
-            const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload', {
+            const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload-video', {
                 method: 'POST',
                 body: formData,
                 headers: {

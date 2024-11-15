@@ -63,7 +63,7 @@ function UploadVideo() {
                 // Esperar 5 segundos antes de redirigir al home
                 setTimeout(() => {
                     navigate('/'); // Redirigir al home después de 5 segundos
-                }, 5000); // 5000 milisegundos = 5 segundos
+                }, 3000); // 5000 milisegundos = 5 segundos
             } else {
                 setError(result.message || 'Error al subir el video');
             }

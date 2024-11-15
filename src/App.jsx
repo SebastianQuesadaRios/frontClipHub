@@ -1,19 +1,37 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Forms from './components/Forms';
-import UploadVideo from './components/UploadVideo';
-import Home from './components/Home';  // Si tienes un Home donde se muestran los videos
+import Register from './components/Register';
+import UploadVideo from './components/UploadVideo';  // Importa el componente para subir videos
 
 function App() {
+    const [userId, setUserId] = useState(null);
+
+    const handleLogin = (userId) => {
+        console.log("Usuario logueado con ID:", userId); // Esto debería mostrar el ID
+        setUserId(userId);
+    };
+
     return (
-        <Router>
+        <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Forms />} />
-                <Route path="/upload-video" element={<UploadVideo />} />
-                <Route path="/home" element={<Home />} />
+                {/* Ruta de inicio de sesión */}
+                <Route index element={<Forms callback={handleLogin} />} />
+                
+                {/* Ruta para registro */}
+                <Route path="/registro" element={<Register />} />
+
+                {/* Ruta para subir video, solo accesible si el usuario está logueado */}
+                <Route
+                    path="/upload-video"
+                    element={userId ? <UploadVideo /> : <Navigate to="/" />}
+                />
+
+                {/* Redirigir cualquier ruta no definida a la página de inicio de sesión */}
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-        </Router>
+        </BrowserRouter>
     );
 }
 
 export default App;
-

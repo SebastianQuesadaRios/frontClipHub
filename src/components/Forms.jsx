@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/Forms.css';
+import './styles/Login.css';  // Asumo que tienes este archivo para los estilos.
 import userIcon from '../user.png'; 
 import passwordIcon from '../contraseña.png';
 
-function Forms({ callback }) {
+function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // hook para navegación
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
         setError('');
         setSuccess('');
 
+        // Verificación básica de los campos
+        if (!username || !password) {
+            setError('Por favor, ingresa tu nombre de usuario y contraseña.');
+            return;
+        }
+
         const loginData = {
-            email: username,
+            username,
             password,
         };
 
@@ -32,12 +39,11 @@ function Forms({ callback }) {
             const result = await response.json();
 
             if (response.ok) {
-                setSuccess(result.status);
-                callback(result.userId, result.role);
-                console.log('Login exitoso:', { username, password });
-                navigate('/reclamar-codigo');
+                setSuccess('Inicio de sesión exitoso');
+                // Redirigir al componente de subir video
+                navigate('/upload-video');
             } else {
-                setError(result.message);
+                setError(result.message || 'Error al iniciar sesión');
             }
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
@@ -45,26 +51,22 @@ function Forms({ callback }) {
         }
     };
 
-    const handleRegister = () => {
-        navigate('/registro');
-    };
-
     return (
         <div className="login-container">
-            <h2 className="login-title">ClipHub</h2>
-            <p className="login-subtitle">Inicia sesión</p>
+            <h2 className="login-title">Inicia Sesión</h2>
+            <p className="login-subtitle">Accede a tu cuenta</p>
             {error && <div className="error-message">{error}</div>}
             {success && <div className="success-message">{success}</div>}
             <div className="form-group">
                 <label htmlFor="username">
-                    <img src={userIcon} alt="User Icon" className="icon" /> Email
+                    <img src={userIcon} alt="User Icon" className="icon" /> Nombre de usuario
                 </label>
                 <input
                     type="text"
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Ingresa tu Email"
+                    placeholder="Ingresa tu nombre de usuario"
                     required
                 />
             </div>
@@ -81,14 +83,10 @@ function Forms({ callback }) {
                     required
                 />
             </div>
-            <button className="login-button" onClick={handleLogin}>Entrar</button>
-            <button className="register-button" onClick={handleRegister}>Registrarse</button>
-            <div className="register-info"><span className="tm-symbol">™</span> <span>Sebastian Quesada Rios</span>
-</div>
-
+            <button className="login-button" onClick={handleLogin}>Iniciar sesión</button>
         </div>
     );
 }
 
-export default Forms;
+export default Login;
 

@@ -2,48 +2,28 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Forms from './components/Forms';
 import Register from './components/Register';
-import UploadVideo from './components/UploadVideo'; // Componente para subir video
-import Home from './components/Home'; // Componente para la página principal que muestra los videos
+import UploadVideo from './components/UploadVideo'; // Asegúrate de importar el componente UploadVideo
+
 
 function App() {
-    const [userId, setUserId] = useState(null); // Estado para manejar la autenticación
+    const [userId, setUserId] = useState(null);
 
-    const handleLogin = (userId) => {
+    const handleLogin = (userId, role) => {
         console.log("Usuario logueado con ID:", userId); // Esto debería mostrar el ID
-        setUserId(userId); // Guardamos el ID del usuario logueado
+        setUserId(userId);
     };
 
     return (
         <BrowserRouter>
             <Routes>
-                {/* Página de login */}
-                <Route
-                    index
-                    element={userId ? <Navigate to="/home" /> : <Forms callback={handleLogin} />} // Si está logueado, redirige al home
-                />
-
-                {/* Página de registro */}
+                <Route index element={<Forms callback={handleLogin} />} />
                 <Route path="/registro" element={<Register />} />
-
-                {/* Ruta para la página principal (home) que muestra los videos */}
-                <Route
-                    path="/home"
-                    element={userId ? <Home /> : <Navigate to="/" />} // Redirige a login si no está autenticado
-                />
-
-                {/* Ruta protegida para subir video */}
-                <Route
-                    path="/upload-video"
-                    element={userId ? <UploadVideo /> : <Navigate to="/" />} // Redirige a login si no está autenticado
-                />
-
-                {/* Redirigir cualquier ruta no definida al login */}
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/upload-video" element={<UploadVideo />} /> {/* Ruta para subir video */}
+                <Route path="*" element={<Navigate to="/" />} /> {/* Redirige cualquier ruta no definida a la página de inicio de sesión */}
             </Routes>
         </BrowserRouter>
     );
 }
 
 export default App;
-
 

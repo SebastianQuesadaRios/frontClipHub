@@ -1,71 +1,98 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/Forms.css';
+import './styles/Forms.css';  // Asegúrate de tener este archivo para los estilos.
+import userIcon from '../user.png'; 
+import passwordIcon from '../contraseña.png';
 
-function Forms({ callback }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+function Login() {
+    const [username, setUsername] = useState(''); // Almacena el nombre de usuario
+    const [password, setPassword] = useState(''); // Almacena la contraseña
+    const [error, setError] = useState(''); // Mensaje de error
+    const [success, setSuccess] = useState(''); // Mensaje de éxito
+    const navigate = useNavigate(); // Hook para navegar entre rutas
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
+    // Función que maneja el inicio de sesión
+    const handleLogin = async (e) => {
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+        setError(''); // Limpiar el mensaje de error
+        setSuccess(''); // Limpiar el mensaje de éxito
 
-        if (!email || !password) {
-            setError('Por favor, ingresa un correo y contraseña.');
+        // Verificación básica de los campos
+        if (!username || !password) {
+            setError('Por favor, ingresa tu nombre de usuario y contraseña.');
             return;
         }
 
-        // Aquí deberías hacer la solicitud de login al backend
+        // Preparar los datos para la solicitud de login
+        const loginData = {
+            email: username, // Usar el nombre de usuario como email
+            password,
+        };
+
         try {
-            // Suponiendo que el login es exitoso
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify(loginData),
             });
 
-            const data = await response.json();
+            const result = await response.json();
 
+            // Si el login es exitoso, guardar el token y redirigir
             if (response.ok) {
-                callback(data.userId); // Llamamos a la función que maneja el login
+                // Asumiendo que el servidor devuelve un token
+                localStorage.setItem('token', result.token); // Guardar el token en localStorage
+                setSuccess('Inicio de sesión exitoso');
+                console.log('Redirigiendo a /upload-video'); // Agregar un log para depuración
+                navigate('/upload-video'); // Redirigir a /upload-video
             } else {
-                setError(data.message || 'Error al iniciar sesión');
+                // Si las credenciales son incorrectas, mostrar error
+                setError(result.message || 'Credenciales incorrectas');
             }
         } catch (error) {
-            console.error('Error al intentar iniciar sesión:', error);
+            console.error('Error al realizar la solicitud:', error);
             setError('Error al intentar iniciar sesión. Intente de nuevo más tarde.');
         }
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Correo:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Contraseña:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Iniciar sesión</button>
-            </form>
-            {error && <div>{error}</div>}
+        <div className="login-container">
+            <h2 className="login-title">Inicia Sesión</h2>
+            <p className="login-subtitle">Accede a tu cuenta</p>
+            {error && <div className="error-message">{error}</div>}
+            {success && <div className="success-message">{success}</div>}
+            <div className="form-group">
+                <label htmlFor="username">
+                    <img src={userIcon} alt="User Icon" className="icon" /> Email
+                </label>
+                <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)} // Actualizar el nombre de usuario
+                    placeholder="Ingresa tu nombre de usuario"
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="password">
+                    <img src={passwordIcon} alt="Password Icon" className="icon" /> Contraseña
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} // Actualizar la contraseña
+                    placeholder="Ingresa tu contraseña"
+                    required
+                />
+            </div>
+            <button className="login-button" onClick={handleLogin}>Iniciar sesión</button>
         </div>
     );
 }
 
-export default Forms;
-
+export default Login;
 

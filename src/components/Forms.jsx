@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/Forms.css';  // Asumo que tienes este archivo para los estilos.
+import './styles/Forms.css';  // Asegúrate de tener este archivo para los estilos.
 import userIcon from '../user.png'; 
 import passwordIcon from '../contraseña.png';
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-    const navigate = useNavigate(); // hook para navegación
+    const [username, setUsername] = useState(''); // Almacena el nombre de usuario
+    const [password, setPassword] = useState(''); // Almacena la contraseña
+    const [error, setError] = useState(''); // Mensaje de error
+    const [success, setSuccess] = useState(''); // Mensaje de éxito
+    const navigate = useNavigate(); // Hook para navegar entre rutas
 
+    // Función que maneja el inicio de sesión
     const handleLogin = async (e) => {
-        e.preventDefault();
-        setError('');
-        setSuccess('');
+        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+        setError(''); // Limpiar el mensaje de error
+        setSuccess(''); // Limpiar el mensaje de éxito
 
         // Verificación básica de los campos
         if (!username || !password) {
@@ -22,8 +23,9 @@ function Login() {
             return;
         }
 
+        // Preparar los datos para la solicitud de login
         const loginData = {
-            username,
+            email: username, // Usar el nombre de usuario como email
             password,
         };
 
@@ -38,12 +40,14 @@ function Login() {
 
             const result = await response.json();
 
+            // Si el login es exitoso, redirigir al componente de subir video
             if (response.ok) {
                 setSuccess('Inicio de sesión exitoso');
                 // Redirigir al componente de subir video
                 navigate('/upload-video');
             } else {
-                setError(result.message || 'Error al iniciar sesión');
+                // Si las credenciales son incorrectas, mostrar error
+                setError(result.message || 'Credenciales incorrectas');
             }
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
@@ -65,7 +69,7 @@ function Login() {
                     type="text"
                     id="username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)} // Actualizar el nombre de usuario
                     placeholder="Ingresa tu nombre de usuario"
                     required
                 />
@@ -78,7 +82,7 @@ function Login() {
                     type="password"
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)} // Actualizar la contraseña
                     placeholder="Ingresa tu contraseña"
                     required
                 />

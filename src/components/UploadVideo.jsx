@@ -54,7 +54,14 @@ function UploadVideo() {
 
             if (response.ok) {
                 setSuccess('Video subido con éxito');
-                navigate('/'); // Redirigir al home después de subir el video
+
+                // Resetear campos
+                setVideoFile(null);
+                setTitle('');
+                setDescription('');
+
+                // Redirigir al home después de subir el video
+                navigate('/');
             } else {
                 setError(result.message || 'Error al subir el video');
             }

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Forms from './components/Forms';
 import Register from './components/Register';
-import UploadVideo from './components/UploadVideo'; // Asegúrate de importar el componente UploadVideo
+import UploadVideo from './components/UploadVideo'; // Componente para subir video
+import Home from './components/Home'; // Componente para la página principal que muestra los videos
 
 function App() {
     const [userId, setUserId] = useState(null);
 
+    // Función para manejar el login, asignando el userId después de la autenticación
     const handleLogin = (userId, role) => {
         console.log("Usuario logueado con ID:", userId); // Esto debería mostrar el ID
         setUserId(userId);
@@ -15,10 +17,26 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
+                {/* Página de login */}
                 <Route index element={<Forms callback={handleLogin} />} />
+
+                {/* Página de registro */}
                 <Route path="/registro" element={<Register />} />
-                <Route path="/upload-video" element={<UploadVideo />} /> {/* Ruta para subir video */}
-                <Route path="*" element={<Navigate to="/" />} /> {/* Redirige cualquier ruta no definida a la página de inicio de sesión */}
+
+                {/* Ruta para la página principal (home) que muestra los videos */}
+                <Route
+                    path="/home"
+                    element={userId ? <Home /> : <Navigate to="/" />} // Redirige si no está autenticado
+                />
+
+                {/* Ruta protegida para subir video */}
+                <Route
+                    path="/upload-video"
+                    element={userId ? <UploadVideo /> : <Navigate to="/" />} // Redirige si no está autenticado
+                />
+
+                {/* Redirigir cualquier ruta no definida al login */}
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </BrowserRouter>
     );

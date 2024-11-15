@@ -24,7 +24,7 @@ function Navbar() {
 
             {/* Enlaces a la derecha */}
             <div className="nav-links">
-                <Link to="/Home">Inicio</Link> {/* Enlace a la página principal */}
+                <Link to="/home">Inicio</Link> {/* Cambié la ruta a /home */}
                 <Link to="/upload-video">Subir Video</Link> {/* Enlace a la página de subir video */}
                 <Link to="#" onClick={handleLogout}>Cerrar Sesión</Link> {/* Enlace para cerrar sesión */}
             </div>
@@ -33,6 +33,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
 
 
 

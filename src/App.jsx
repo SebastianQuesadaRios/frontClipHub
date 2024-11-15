@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Forms from './components/Forms';
 import Register from './components/Register';
 import UploadVideo from './components/UploadVideo'; // Componente para subir video
@@ -7,11 +7,13 @@ import Home from './components/Home'; // Componente para la página principal qu
 
 function App() {
     const [userId, setUserId] = useState(null);
+    const navigate = useNavigate(); // Usamos el hook para la navegación
 
     // Función para manejar el login, asignando el userId después de la autenticación
-    const handleLogin = (userId, role) => {
+    const handleLogin = (userId) => {
         console.log("Usuario logueado con ID:", userId); // Esto debería mostrar el ID
         setUserId(userId);
+        navigate('/home'); // Redirigir al home después del login
     };
 
     return (

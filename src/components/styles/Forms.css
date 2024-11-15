@@ -146,6 +146,6 @@ body {
     left: 20px;
     font-size: 2rem; /* Tamaño grande */
     font-family: 'Arial Black', sans-serif; /* Fuente en negrita */
-    color: var(#fff); /* Color consistente con el tema */
+    color:#fff; /* Color consistente con el tema */
     text-shadow: 2px 2px 4px rgb(0, 0, 0); /* Efecto de sombra */
 }

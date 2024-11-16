@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import VideoCard from './VideoCard';
-import './styles/Home.css';
+import './styles/Dashboard.css';
 
-function Home() {
+function Dashboard() {
     const [videos, setVideos] = useState([]);
     const navigate = useNavigate();
 

@@ -24,7 +24,7 @@ function Navbar() {
 
             {/* Enlaces a la derecha */}
             <div className="nav-links">
-                <Link to="/home">Inicio</Link> {/* Cambié la ruta a /home */}
+                <Link to="/dash">Inicio</Link> {/* Cambié la ruta a /home */}
                 <Link to="/upload-video">Subir Video</Link> {/* Enlace a la página de subir video */}
                 <Link to="#" onClick={handleLogout}>Cerrar Sesión</Link> {/* Enlace para cerrar sesión */}
             </div>

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Forms from './components/Forms';
 import Register from './components/Register';
 import UploadVideo from './components/UploadVideo'; // Asegúrate de importar el componente UploadVideo
-import Dashboard from './components/Dashboard';
+
 
 function App() {
     const [userId, setUserId] = useState(null);
@@ -18,7 +18,6 @@ function App() {
             <Routes>
                 <Route index element={<Forms callback={handleLogin} />} />
                 <Route path="/registro" element={<Register />} />
-                <Route path="/dash" element={<Dashboard />} />
                 <Route path="/upload-video" element={<UploadVideo />} /> {/* Ruta para subir video */}
                 <Route path="*" element={<Navigate to="/" />} /> {/* Redirige cualquier ruta no definida a la página de inicio de sesión */}
             </Routes>

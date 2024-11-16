@@ -17,8 +17,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route index element={<Forms callback={handleLogin} />} />
-                <Route path="/dash" element={<Dashboard />} />
                 <Route path="/registro" element={<Register />} />
+                <Route path="/dash" element={<Dashboard />} />
                 <Route path="/upload-video" element={<UploadVideo />} /> {/* Ruta para subir video */}
                 <Route path="*" element={<Navigate to="/" />} /> {/* Redirige cualquier ruta no definida a la página de inicio de sesión */}
             </Routes>

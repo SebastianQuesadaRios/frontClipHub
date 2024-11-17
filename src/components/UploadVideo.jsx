@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/UploadVideo.css';
-import Navbar from './Navbar';  // Asegúrate de tener este componente Navbar
+import Navbar from './Navbar';  // Importamos el componente Navbar
 
 function UploadVideo() {
     const [videoFile, setVideoFile] = useState(null);
@@ -51,10 +51,10 @@ function UploadVideo() {
         formData.append('description', description);
 
         // Obtener el correo electrónico del usuario desde el localStorage (suponiendo que el email se guarda allí al loguearse)
-        const email = localStorage.getItem('email');  // Asegúrate de guardar el email al hacer login
+        const user = localStorage.getItem('user');  // Asegúrate de guardar el email al hacer login
 
         // Si no hay email, mostrar error
-        if (!email) {
+        if (!user) {
             setError('No se ha encontrado el email del usuario.');
             return;
         }

@@ -151,6 +151,7 @@ function UploadVideo() {
     );
 }
 
-export default UploadVideo;
+export default Upload
+
 
 

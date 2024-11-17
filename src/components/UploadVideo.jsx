@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/UploadVideo.css';
-import Navbar from './Navbar';  // Importamos el componente Navbar
+import Navbar from './Navbar';  // Asegúrate de tener este componente Navbar
 
 function UploadVideo() {
     const [videoFile, setVideoFile] = useState(null);

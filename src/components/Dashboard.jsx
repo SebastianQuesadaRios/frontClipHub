@@ -1,28 +1,28 @@
 import React from 'react';
-import Navbar from './Navbar'; // Asegúrate de tener Navbar en la ruta correcta
-import VideoCard from './VideoCard'; // Asegúrate de importar VideoCard correctamente
-import './styles/Dashboard.css'; // Archivo CSS para estilos específicos de Dashboard
+import Navbar from './Navbar';
+import VideoCard from './VideoCard';
+import './styles/Dashboard.css';
 
 function Dashboard() {
-    // Datos de ejemplo de videos
+    // Simulación de datos de videos desde el servidor
     const videos = [
         {
             id: 1,
-            title: 'Cómo programar en React',
-            description: 'Aprende los fundamentos de React en este tutorial.',
-            thumbnailUrl: 'https://via.placeholder.com/320x240?text=React+Tutorial',
+            title: 'Tutorial de React',
+            thumbnailUrl: 'https://via.placeholder.com/320x180?text=React+Tutorial',
+            channel: 'React Dev',
         },
         {
             id: 2,
-            title: 'Introducción a JavaScript',
-            description: 'Todo lo que necesitas saber sobre JavaScript.',
-            thumbnailUrl: 'https://via.placeholder.com/320x240?text=JavaScript+Intro',
+            title: 'Cómo dominar CSS',
+            thumbnailUrl: 'https://via.placeholder.com/320x180?text=CSS+Mastery',
+            channel: 'Web Designer',
         },
         {
             id: 3,
-            title: 'Domina CSS en 30 minutos',
-            description: 'Aprende a diseñar páginas web con CSS.',
-            thumbnailUrl: 'https://via.placeholder.com/320x240?text=CSS+Tutorial',
+            title: 'Introducción a JavaScript',
+            thumbnailUrl: 'https://via.placeholder.com/320x180?text=JavaScript+Basics',
+            channel: 'JS Guru',
         },
     ];
 
@@ -30,9 +30,7 @@ function Dashboard() {
         <div>
             <Navbar />
             <div className="dashboard-content">
-                <h1>Bienvenido a tu Dashboard</h1>
-                <p>Explora los videos subidos por la comunidad:</p>
-
+                <h1>Explora los videos</h1>
                 <div className="video-grid">
                     {videos.map((video) => (
                         <VideoCard key={video.id} video={video} />
@@ -44,4 +42,5 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
 

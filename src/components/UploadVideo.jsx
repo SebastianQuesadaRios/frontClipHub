@@ -38,15 +38,23 @@ function UploadVideo() {
         formData.append('title', title);
         formData.append('description', description);
 
-        // Obtener el token de autenticación desde el localStorage (si está disponible)
-        const token = localStorage.getItem('token'); // Ajusta según cómo estés manejando la autenticación
+        // Obtener el correo electrónico del usuario desde el localStorage (suponiendo que el email se guarda allí al loguearse)
+        const email = localStorage.getItem('email');  // Asegúrate de guardar el email al hacer login
+
+        // Si no hay email, mostrar error
+        if (!email) {
+            setError('No se ha encontrado el email del usuario.');
+            return;
+        }
+
+        formData.append('email', email); // Agregar el email al FormData
 
         try {
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload-video', {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'Authorization': token ? `Bearer ${token}` : '', // Incluir token si está disponible
+                    // Aquí no es necesario el token si solo estamos usando el email
                 },
             });
 
@@ -62,8 +70,8 @@ function UploadVideo() {
 
                 // Esperar 5 segundos antes de redirigir al home
                 setTimeout(() => {
-                    navigate('/'); // Redirigir al home después de 5 segundos
-                }, 3000); // 5000 milisegundos = 5 segundos
+                    navigate('/'); // Redirigir al home después de 3 segundos
+                }, 3000); // 3000 milisegundos = 3 segundos
             } else {
                 setError(result.message || 'Error al subir el video');
             }
@@ -127,4 +135,5 @@ function UploadVideo() {
 }
 
 export default UploadVideo;
+
 

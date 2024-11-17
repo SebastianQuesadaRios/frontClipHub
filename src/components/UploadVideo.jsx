@@ -50,16 +50,6 @@ function UploadVideo() {
         formData.append('title', title);
         formData.append('description', description);
 
-        // Obtener el correo electrónico del usuario desde el localStorage (suponiendo que el email se guarda allí al loguearse)
-        const email = localStorage.getItem('email');  // Asegúrate de guardar el email al hacer login
-
-        // Si no hay email, mostrar error
-        if (!email) {
-            setError('No se ha encontrado el email del usuario.');
-            return;
-        }
-
-        formData.append('email', email); // Agregar el email al FormData
 
         try {
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload-video', {

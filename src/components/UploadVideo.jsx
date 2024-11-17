@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/UploadVideo.css';
-import Navbar from './Navbar'; // Importamos el componente Navbar
+import Navbar from './Navbar';  // Importamos el componente Navbar
 
 function UploadVideo() {
     const [videoFile, setVideoFile] = useState(null);
-    const [previewFile, setPreviewFile] = useState(null); // Estado para la imagen de preview
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
@@ -22,31 +21,20 @@ function UploadVideo() {
         }
     };
 
-    // Función para manejar la carga del archivo de preview
-    const handlePreviewChange = (e) => {
-        const file = e.target.files[0];
-        if (file && file.type.includes('image')) {
-            setPreviewFile(file);
-        } else {
-            setError('Por favor, selecciona un archivo de imagen válido.');
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
 
         // Validaciones
-        if (!videoFile || !previewFile || !title || !description) {
+        if (!videoFile || !title || !description) {
             setError('Faltan campos obligatorios.');
             return;
         }
 
-        // Crear un FormData para enviar los archivos
+        // Crear un FormData para enviar el archivo
         const formData = new FormData();
         formData.append('video', videoFile);
-        formData.append('preview', previewFile); // Agregar la imagen de preview
         formData.append('title', title);
         formData.append('description', description);
 
@@ -65,24 +53,23 @@ function UploadVideo() {
             const result = await response.json();
 
             if (response.ok) {
-                setSuccess('Video y preview subidos con éxito');
+                setSuccess('Video subido con éxito');
 
                 // Resetear campos
                 setVideoFile(null);
-                setPreviewFile(null);
                 setTitle('');
                 setDescription('');
 
-                // Esperar 3 segundos antes de redirigir al home
+                // Esperar 5 segundos antes de redirigir al home
                 setTimeout(() => {
-                    navigate('/'); // Redirigir al home después de 3 segundos
-                }, 3000);
+                    navigate('/'); // Redirigir al home después de 5 segundos
+                }, 3000); // 5000 milisegundos = 5 segundos
             } else {
-                setError(result.message || 'Error al subir el video y el preview');
+                setError(result.message || 'Error al subir el video');
             }
         } catch (error) {
-            console.error('Error al intentar subir el video y el preview:', error);
-            setError('Error al intentar subir los archivos. Intente de nuevo más tarde.');
+            console.error('Error al intentar subir el video:', error);
+            setError('Error al intentar subir el video. Intente de nuevo más tarde.');
         }
     };
 
@@ -104,18 +91,6 @@ function UploadVideo() {
                             id="video"
                             accept="video/*"
                             onChange={handleVideoChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="preview">
-                            <i className="fas fa-image icon"></i> Imagen de Preview
-                        </label>
-                        <input
-                            type="file"
-                            id="preview"
-                            accept="image/*"
-                            onChange={handlePreviewChange}
                             required
                         />
                     </div>
@@ -151,7 +126,5 @@ function UploadVideo() {
     );
 }
 
-export default Upload
-
-
+export default UploadVideo;
 

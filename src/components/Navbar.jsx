@@ -5,7 +5,10 @@ import './styles/Navbar.css';
 function Navbar() {
     const handleLogout = () => {
         console.log('Cerrando sesión...');
-        window.location.href = '/'; // Redirige a la página de inicio de sesión
+        // Limpiar el localStorage
+        localStorage.clear();
+        // Redirigir a la página de inicio de sesión
+        window.location.href = '/';
     };
 
     return (

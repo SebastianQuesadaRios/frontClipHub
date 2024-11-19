@@ -77,7 +77,7 @@ function UploadVideo() {
 
                 // Esperar 3 segundos antes de redirigir al home
                 setTimeout(() => {
-                    navigate('/'); // Redirigir al home después de 3 segundos
+                    navigate('/dashboard'); // Redirigir al home después de 3 segundos
                 }, 3000);
             } else {
                 setError(result.message || 'Error al subir el video');

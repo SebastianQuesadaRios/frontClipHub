@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/Forms.css';  // Asegúrate de tener este archivo para los estilos.
-import userIcon from '../user.png'; 
+import './styles/Forms.css'; // Asegúrate de tener este archivo para los estilos.
+import userIcon from '../user.png';
 import passwordIcon from '../contraseña.png';
 
 function Login() {
@@ -38,9 +38,11 @@ function Login() {
             const result = await response.json();
 
             if (response.ok) {
+                // Guardar token y nombre de usuario en localStorage
                 localStorage.setItem('token', result.token);
+                localStorage.setItem('username', result.username); // Guardar el nombre del usuario
                 setSuccess('Inicio de sesión exitoso');
-                navigate('/upload-video');
+                navigate('/upload-video'); // Redirigir a la página de subida de videos
             } else {
                 setError(result.message || 'Credenciales incorrectas');
             }

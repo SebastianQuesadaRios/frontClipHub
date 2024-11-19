@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/UploadVideo.css';
-import Navbar from './Navbar';  // Importamos el componente Navbar
+import Navbar from './Navbar'; // Importamos el componente Navbar
 
 function UploadVideo() {
     const [videoFile, setVideoFile] = useState(null);
-    const [previewFile, setPreviewFile] = useState(null);  // Estado para la imagen de vista previa
+    const [previewFile, setPreviewFile] = useState(null); // Estado para la imagen de vista previa
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
@@ -43,21 +43,24 @@ function UploadVideo() {
             return;
         }
 
+        const userId = localStorage.getItem('userId'); // Obtener el userId desde el localStorage
+        if (!userId) {
+            setError('Usuario no autenticado. Inicia sesión para subir un video.');
+            return;
+        }
+
         // Crear un FormData para enviar los archivos
         const formData = new FormData();
         formData.append('video', videoFile);
-        formData.append('preview', previewFile);  // Añadir la imagen de vista previa
+        formData.append('preview', previewFile); // Añadir la imagen de vista previa
         formData.append('title', title);
         formData.append('description', description);
-
+        formData.append('userId', userId); // Agregar el userId al FormData
 
         try {
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload-video', {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    // Aquí no es necesario el token si solo estamos usando el email
-                },
             });
 
             const result = await response.json();
@@ -67,7 +70,7 @@ function UploadVideo() {
 
                 // Resetear campos
                 setVideoFile(null);
-                setPreviewFile(null);  // Resetear la imagen de vista previa
+                setPreviewFile(null); // Resetear la imagen de vista previa
                 setTitle('');
                 setDescription('');
 
@@ -150,3 +153,4 @@ function UploadVideo() {
 }
 
 export default UploadVideo;
+

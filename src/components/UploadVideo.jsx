@@ -43,8 +43,9 @@ function UploadVideo() {
             return;
         }
 
-        const userId = localStorage.getItem('userId'); // Obtener el userId desde el localStorage
-        if (!userId) {
+        // Recuperar el username del localStorage
+        const username = localStorage.getItem('username');
+        if (!username) {
             setError('Usuario no autenticado. Inicia sesión para subir un video.');
             return;
         }
@@ -55,7 +56,7 @@ function UploadVideo() {
         formData.append('preview', previewFile); // Añadir la imagen de vista previa
         formData.append('title', title);
         formData.append('description', description);
-        formData.append('userId', userId); // Agregar el userId al FormData
+        formData.append('username', username); // Agregar el username al formulario
 
         try {
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload-video', {
@@ -70,7 +71,7 @@ function UploadVideo() {
 
                 // Resetear campos
                 setVideoFile(null);
-                setPreviewFile(null); // Resetear la imagen de vista previa
+                setPreviewFile(null);
                 setTitle('');
                 setDescription('');
 
@@ -153,4 +154,5 @@ function UploadVideo() {
 }
 
 export default UploadVideo;
+
 

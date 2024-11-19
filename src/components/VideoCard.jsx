@@ -5,13 +5,13 @@ function VideoCard({ video }) {
     return (
         <div className="video-card">
             <img
-                src={video.thumbnailUrl || 'https://via.placeholder.com/320x180'}
+                src={video.previewUrl || 'https://via.placeholder.com/320x180'} // Usamos previewUrl
                 alt={video.title}
                 className="video-thumbnail"
             />
             <div className="video-details">
                 <h3 className="video-title">{video.title}</h3>
-                <p className="video-channel">{video.channel || 'Canal desconocido'}</p>
+                <p className="video-channel">{video.user?.username || 'Canal desconocido'}</p> {/* Usamos video.user.username */}
                 <p className="video-description">
                     {video.description || 'Descripción no disponible'}
                 </p>
@@ -21,4 +21,3 @@ function VideoCard({ video }) {
 }
 
 export default VideoCard;
-

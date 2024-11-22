@@ -11,7 +11,7 @@ function VideoCard({ video }) {
             />
             <div className="video-details">
                 <h3 className="video-title">{video.title}</h3>
-                <p className="video-channel">{video.userId || 'Canal desconocido'}</p>
+                <p className="video-channel">{video.username || 'Canal desconocido'}</p>
                 <p className="video-description">
                     {video.description || 'Descripción no disponible'}
                 </p>

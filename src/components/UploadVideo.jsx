@@ -61,9 +61,6 @@ function UploadVideo() {
         try {
             const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/upload-video', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: formData,
             });
 

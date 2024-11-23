@@ -7,17 +7,20 @@ function VideoPlayer() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const videoId = localStorage.getItem('videoId');  // Obtener el videoId desde localStorage
+        const videoId = localStorage.getItem('videoId'); // Obtener el videoId desde localStorage
         if (!videoId) {
-            // Si no hay videoId, redirigir a alguna página
             setLoading(false);
             return;
         }
 
-        // Simulamos que obtendríamos el video por ID desde el backend
-        // Aquí solo estamos mostrando el ID que almacenamos en el localStorage
+        // Simulamos la carga del video utilizando el videoId
         setVideo({ title: `Video ID: ${videoId}` });
         setLoading(false);
+
+        // Limpieza al desmontar el componente
+        return () => {
+            localStorage.removeItem('videoId'); // Eliminar el videoId del localStorage
+        };
     }, []);
 
     if (loading) return <div>Cargando...</div>;

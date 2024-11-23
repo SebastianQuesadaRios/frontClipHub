@@ -1,9 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/VideoCard.css';
 
 function VideoCard({ video }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        localStorage.setItem('videoId', video._id);  // Guardamos el videoId en localStorage
+        navigate('/video');  // Redirigimos al componente VideoPlayer
+    };
+
     return (
-        <div className="video-card">
+        <div className="video-card" onClick={handleClick}>
             <img
                 src={video.previewUrl || 'https://via.placeholder.com/320x180'}
                 alt={video.title}
@@ -21,4 +29,5 @@ function VideoCard({ video }) {
 }
 
 export default VideoCard;
+
 

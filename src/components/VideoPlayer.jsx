@@ -3,62 +3,55 @@ import Navbar from './Navbar';
 import './styles/VideoPlayer.css';
 
 function VideoPlayer() {
-    const [videoUrl, setVideoUrl] = useState(null);
+    const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const videoId = localStorage.getItem('videoId'); // Obtener el videoId desde localStorage
-        if (!videoId) {
-            setLoading(false);
-            return;
-        }
-
-        // Simulamos que obtendremos la URL del video desde el backend
-        // Aquí deberías realizar una solicitud para obtener la URL completa del video basado en el ID
-        const fetchVideoUrl = async () => {
-            try {
-                const response = await fetch(
-                    `https://back-clip-hub.vercel.app/v1/ClipHub/video/${videoId}` // Cambia a la ruta de tu backend
-                );
-                if (!response.ok) {
-                    throw new Error('No se pudo cargar el video');
-                }
-                const data = await response.json();
-                setVideoUrl(data.videoUrl); // Supongamos que la URL está en data.videoUrl
+        const fetchVideo = async () => {
+            const videoId = localStorage.getItem('videoId');
+            if (!videoId) {
+                setError('No se encontró el ID del video');
                 setLoading(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://back-clip-hub.vercel.app/v1/ClipHub/video/${videoId}`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener el video');
+                }
+
+                const data = await response.json();
+                setVideo(data);
             } catch (err) {
-                console.error(err.message);
+                setError(err.message);
+            } finally {
                 setLoading(false);
             }
         };
 
-        fetchVideoUrl();
+        fetchVideo();
 
-        // Limpieza al desmontar el componente
+        // Limpiar el localStorage cuando se salga del componente
         return () => {
-            localStorage.removeItem('videoId'); // Eliminar el videoId del localStorage
+            localStorage.removeItem('videoId');
         };
     }, []);
 
     if (loading) return <div>Cargando...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div>
             <Navbar />
             <div className="video-player-container">
-                {videoUrl ? (
-                    <video
-                        controls
-                        src={videoUrl}
-                        className="video-player"
-                        preload="auto"
-                        style={{ width: '100%', maxHeight: '500px' }}
-                    >
-                        Tu navegador no soporta reproducción de videos.
-                    </video>
-                ) : (
-                    <p>No se encontró el video.</p>
-                )}
+                <h2>{video.title}</h2>
+                <video controls width="100%">
+                    <source src={video.videoUrl} type="video/mp4" />
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+                <p>{video.description}</p>
             </div>
         </div>
     );

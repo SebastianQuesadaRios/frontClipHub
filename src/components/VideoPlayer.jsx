@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import './styles/VideoPlayer.css';
 
 function VideoPlayer() {
-    const [video, setVideo] = useState(null);
+    const [videoUrl, setVideoUrl] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,9 +13,26 @@ function VideoPlayer() {
             return;
         }
 
-        // Simulamos la carga del video utilizando el videoId
-        setVideo({ title: `Video ID: ${videoId}` });
-        setLoading(false);
+        // Simulamos que obtendremos la URL del video desde el backend
+        // Aquí deberías realizar una solicitud para obtener la URL completa del video basado en el ID
+        const fetchVideoUrl = async () => {
+            try {
+                const response = await fetch(
+                    `https://back-clip-hub.vercel.app/v1/ClipHub/video/${videoId}` // Cambia a la ruta de tu backend
+                );
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar el video');
+                }
+                const data = await response.json();
+                setVideoUrl(data.videoUrl); // Supongamos que la URL está en data.videoUrl
+                setLoading(false);
+            } catch (err) {
+                console.error(err.message);
+                setLoading(false);
+            }
+        };
+
+        fetchVideoUrl();
 
         // Limpieza al desmontar el componente
         return () => {
@@ -29,11 +46,23 @@ function VideoPlayer() {
         <div>
             <Navbar />
             <div className="video-player-container">
-                <h2>{video ? video.title : 'No se encontró el video'}</h2>
-                {/* Aquí agregaríamos el reproductor de video */}
+                {videoUrl ? (
+                    <video
+                        controls
+                        src={videoUrl}
+                        className="video-player"
+                        preload="auto"
+                        style={{ width: '100%', maxHeight: '500px' }}
+                    >
+                        Tu navegador no soporta reproducción de videos.
+                    </video>
+                ) : (
+                    <p>No se encontró el video.</p>
+                )}
             </div>
         </div>
     );
 }
 
 export default VideoPlayer;
+

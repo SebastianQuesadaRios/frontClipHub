@@ -4,7 +4,6 @@ import Forms from './components/Forms';
 import Register from './components/Register';
 import UploadVideo from './components/UploadVideo';
 import Dashboard from './components/Dashboard'; // Importa el componente Dashboard
-import VideoPlayer from './components/VideoPlayer'; // Importa el componente VideoPlayer
 
 function App() {
     const [userId, setUserId] = useState(null);
@@ -21,7 +20,6 @@ function App() {
                 <Route path="/registro" element={<Register />} />
                 <Route path="/upload-video" element={<UploadVideo />} />
                 <Route path="/dashboard" element={<Dashboard />} /> {/* Ruta para Dashboard */}
-                <Route path="/video/:videoId" element={<VideoPlayer />} /> {/* Ruta para reproducir el video */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </BrowserRouter>

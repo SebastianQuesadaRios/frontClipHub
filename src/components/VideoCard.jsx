@@ -1,9 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate para la navegación
 import './styles/VideoCard.css';
 
 function VideoCard({ video }) {
+    const navigate = useNavigate(); // Hook para manejar la navegación
+
+    // Función que maneja el clic en la tarjeta
+    const handleClick = () => {
+        navigate(`/video/${video._id}`); // Redirige a la página del reproductor con el videoId
+    };
+
     return (
-        <div className="video-card">
+        <div className="video-card" onClick={handleClick} style={{ cursor: 'pointer' }}>
             <img
                 src={video.previewUrl || 'https://via.placeholder.com/320x180'}
                 alt={video.title}
@@ -19,6 +27,9 @@ function VideoCard({ video }) {
         </div>
     );
 }
+
+export default VideoCard;
+
 
 export default VideoCard;
 

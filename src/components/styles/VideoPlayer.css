@@ -1,0 +1,29 @@
+.video-player {
+    padding: 20px;
+    text-align: center;
+}
+
+.video-element {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    display: block;
+}
+
+.video-player-error {
+    text-align: center;
+    margin: 50px;
+}
+
+.video-player-error button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.video-player-error button:hover {
+    background-color: #0056b3;
+}

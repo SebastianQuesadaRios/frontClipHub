@@ -4,7 +4,8 @@ import Forms from './components/Forms';
 import Register from './components/Register';
 import UploadVideo from './components/UploadVideo';
 import Dashboard from './components/Dashboard';
-import VideoPlayer from './components/VideoPlayer';  // Importa el componente VideoPlayer
+import VideoPlayer from './components/VideoPlayer';
+import Perfil from './components/Perfil'; // Importa el componente Perfil
 
 function App() {
     const [userId, setUserId] = useState(null);
@@ -21,7 +22,8 @@ function App() {
                 <Route path="/registro" element={<Register />} />
                 <Route path="/upload-video" element={<UploadVideo />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/video" element={<VideoPlayer />} />  {/* Ruta para VideoPlayer */}
+                <Route path="/video" element={<VideoPlayer />} />
+                <Route path="/perfil" element={<Perfil />} /> {/* Nueva ruta para el perfil */}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         </BrowserRouter>
@@ -29,5 +31,6 @@ function App() {
 }
 
 export default App;
+
 
 

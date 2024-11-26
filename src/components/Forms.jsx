@@ -42,7 +42,7 @@ function Login() {
                 localStorage.setItem('token', result.token);
                 localStorage.setItem('username', result.username); // Guardar el nombre del usuario
                 setSuccess('Inicio de sesión exitoso');
-                navigate('/upload-video'); // Redirigir a la página de subida de videos
+                navigate('/dashboard'); // Redirigir a la página de subida de videos
             } else {
                 setError(result.message || 'Credenciales incorrectas');
             }

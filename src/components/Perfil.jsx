@@ -10,22 +10,20 @@ function Perfil() {
 
     useEffect(() => {
         const fetchUserVideos = async () => {
-            const loggedUsername = localStorage.getItem('username'); // Cambiado a usar "username"
-            if (!loggedUsername) {
-                setError("No se encontró el usuario en el sistema.");
+            const correo = localStorage.getItem('username'); // Usa el correo del localStorage
+            if (!correo) {
+                setError("No se encontró el correo en el sistema.");
                 setLoading(false);
                 return;
             }
-
+    
             try {
-                const response = await fetch('https://back-clip-hub.vercel.app/v1/ClipHub/videos');
+                const response = await fetch(`https://back-clip-hub.vercel.app/v1/ClipHub/videos/usuario/${correo}`);
                 if (!response.ok) {
                     throw new Error(`Error: ${response.statusText}`);
                 }
-
-                const allVideos = await response.json();
-                // Filtra los videos donde el "username" coincida con el "username" logueado
-                const userVideos = allVideos.filter(video => video.username === loggedUsername);
+    
+                const userVideos = await response.json();
                 setVideos(userVideos);
                 setLoading(false);
             } catch (err) {
@@ -33,9 +31,10 @@ function Perfil() {
                 setLoading(false);
             }
         };
-
+    
         fetchUserVideos();
     }, []);
+    
 
     if (loading) return <div>Cargando tus videos...</div>;
     if (error) return <div>Error: {error}</div>;

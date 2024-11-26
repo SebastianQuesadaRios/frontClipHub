@@ -10,8 +10,8 @@ function Perfil() {
 
     useEffect(() => {
         const fetchUserVideos = async () => {
-            const userEmail = localStorage.getItem('username'); // Cambiado a 'username'
-            if (!userEmail) {
+            const loggedUsername = localStorage.getItem('username'); // Cambiado a usar "username"
+            if (!loggedUsername) {
                 setError("No se encontró el usuario en el sistema.");
                 setLoading(false);
                 return;
@@ -24,7 +24,8 @@ function Perfil() {
                 }
 
                 const allVideos = await response.json();
-                const userVideos = allVideos.filter(video => video.email === userEmail); // Filtramos por correo
+                // Filtra los videos donde el "username" coincida con el "username" logueado
+                const userVideos = allVideos.filter(video => video.username === loggedUsername);
                 setVideos(userVideos);
                 setLoading(false);
             } catch (err) {
@@ -45,7 +46,11 @@ function Perfil() {
             <div className="perfil-content">
                 <h1>Tus videos</h1>
                 {videos.length > 0 ? (
-                    videos.map((video) => <VideoCard key={video._id} video={video} />)
+                    <div className="video-grid">
+                        {videos.map((video) => (
+                            <VideoCard key={video._id} video={video} />
+                        ))}
+                    </div>
                 ) : (
                     <p>No has subido videos aún.</p>
                 )}
@@ -55,4 +60,5 @@ function Perfil() {
 }
 
 export default Perfil;
+
 

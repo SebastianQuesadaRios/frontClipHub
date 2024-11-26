@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
-import { useNavigate } from 'react-router-dom';
-import './styles/Perfil.css';
+import './styles/VideoPlayer.css';
 
-function Perfil() {
-    const [videos, setVideos] = useState([]);
+function VideoPlayer() {
+    const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUserVideos = async () => {
-            const correo = localStorage.getItem('username'); // Recuperar el correo del usuario
-            if (!correo) {
-                setError('No se encontró el correo en el sistema.');
+        const fetchVideo = async () => {
+            const videoId = localStorage.getItem('videoId');
+            if (!videoId) {
+                setError('No se encontró el ID del video');
                 setLoading(false);
                 return;
             }
 
             try {
-                const response = await fetch(
-                    `https://back-clip-hub.vercel.app/v1/ClipHub/videos/usuario/${correo}`
-                );
+                const response = await fetch(`https://back-clip-hub.vercel.app/v1/ClipHub/video/${videoId}`);
                 if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
+                    throw new Error('Error al obtener el video');
                 }
-                const userVideos = await response.json();
-                setVideos(userVideos);
+
+                const data = await response.json();
+                setVideo(data);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -34,44 +31,31 @@ function Perfil() {
             }
         };
 
-        fetchUserVideos();
+        fetchVideo();
+
+        // Limpiar el localStorage cuando se salga del componente
+        return () => {
+            localStorage.removeItem('videoId');
+        };
     }, []);
 
-    const handleVideoClick = (videoId) => {
-        // Guardar el ID del video en el localStorage y redirigir al VideoPlayer
-        localStorage.setItem('videoId', videoId);
-        navigate('/video-player');
-    };
-
-    if (loading) return <div>Cargando videos...</div>;
-    if (error) return <div>Error al cargar videos: {error}</div>;
+    if (loading) return <div>Cargando...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div>
             <Navbar />
-            <div className="perfil-content">
-                <h1>Mis Videos</h1>
-                {videos.length > 0 ? (
-                    <div className="video-grid">
-                        {videos.map((video) => (
-                            <div
-                                key={video._id}
-                                className="video-card"
-                                onClick={() => handleVideoClick(video._id)} // Manejo de clic
-                            >
-                                <img src={video.previewUrl} alt={video.title} />
-                                <h3>{video.title}</h3>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p>No tienes videos subidos aún.</p>
-                )}
+            <div className="video-player-container">
+                <h2>{video.title}</h2>
+                <video controls width="100%">
+                    <source src={video.videoUrl} type="video/mp4" />
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+                <p>{video.description}</p>
             </div>
         </div>
     );
 }
 
-export default Perfil;
-
+export default VideoPlayer;
 

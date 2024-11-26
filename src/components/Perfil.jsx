@@ -10,7 +10,7 @@ function Perfil() {
 
     useEffect(() => {
         const fetchUserVideos = async () => {
-            const userEmail = localStorage.getItem('email'); // Obtenemos el correo del usuario del localStorage
+            const userEmail = localStorage.getItem('username'); // Cambiado a 'username'
             if (!userEmail) {
                 setError("No se encontró el usuario en el sistema.");
                 setLoading(false);
@@ -55,3 +55,4 @@ function Perfil() {
 }
 
 export default Perfil;
+
